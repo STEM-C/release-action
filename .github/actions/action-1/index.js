@@ -25,23 +25,10 @@ async function run() {
 
         }  else {
             console.log("This was a merge to master which was not a release, attempting to increment patch version.");
-            let stdout = "";
-            let stderr = "";
-            const options = {
-                listeners: {
-                    stdout: (data) => {
-                        stdout += data.toString();
-                    },
-                    stderr: (data) => {
-                        stderr += data.toString();
-                    },
-                },
-            };
 
-            const branch = await exec("git branch", undefined, options);
+            const branch = await _exec("git branch");
             console.log("The branch is: ", branch);
-            console.log("The branch stdout is: ", stdout);
-            console.log("The branch stderr is: ", stderr);
+            console.log("The branch stdout is: ", branch.stdout.trim());
 
             const previousTagSha = await exec("git rev-list --tags --topo-order --max-count=1");
 
@@ -87,4 +74,37 @@ async function postTag(ver) {
     });
 
     console.log("Tag should be created, response was: \n\n", response);
+}
+
+async function _exec(command) {
+    let stdout = "";
+    let stderr = "";
+
+    try {
+        const options = {
+            listeners: {
+                stdout: (data) => {
+                    stdout += data.toString();
+                },
+                stderr: (data) => {
+                    stderr += data.toString();
+                },
+            },
+        };
+
+        const code = await exec(command, undefined, options);
+
+        return {
+            code,
+            stdout,
+            stderr,
+        };
+    } catch (err) {
+        return {
+            code: 1,
+            stdout,
+            stderr,
+            error: err,
+        };
+    }
 }
