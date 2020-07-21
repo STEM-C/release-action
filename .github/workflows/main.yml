@@ -1,0 +1,19 @@
+name: Merge master into develop
+on:
+  pull_request:
+    branches:
+      - master
+    types: [closed]
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      # check out the repository
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Merge into master
+        uses: ./.github/actions/
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          slack_token: "${{ secrets.SLACK_TOKEN }}"

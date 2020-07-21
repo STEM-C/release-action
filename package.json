@@ -1,0 +1,13 @@
+{
+  "name": "release-action",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/STEM-C/release-action.git",
+  "author": "Dakota Rennemann <rennemannd@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@actions/core": "^1.2.4",
+    "@actions/github": "^4.0.0",
+    "@octokit/request": "^5.4.6"
+  }
+}
