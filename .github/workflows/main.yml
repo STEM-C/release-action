@@ -1,4 +1,4 @@
-name: Merge master into develop
+name: Merge Into Master
 on:
   pull_request:
     branches:
@@ -12,8 +12,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Merge into master
-        uses: ./.github/actions/
+      - name: Tag Master
+        uses: ./.github/actions/action-1/
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          slack_token: "${{ secrets.SLACK_TOKEN }}"
+          #slack_token: "${{ secrets.SLACK_TOKEN }}"
