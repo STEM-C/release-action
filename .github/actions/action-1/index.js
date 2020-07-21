@@ -26,13 +26,12 @@ async function run() {
         }  else {
             console.log("This was a merge to master which was not a release, attempting to increment patch version.");
 
-            const test = await _exec("git tag");
-            console.log("Value of this test is: ", test);
+            await _exec("git fetch --prune --unshallow --tags");
 
-            const previousTagSha = await _exec("git rev-list --tags --topo-order --max-count=1");
+            const previousTagSha = (await _exec("git rev-list --tags --topo-order --max-count=1")).stdout.trim();
             console.log("Value of previous tag is: ", previousTagSha);
 
-            let tag = await _exec(`git describe --tags ${previousTagSha}`);
+            let tag = (await _exec(`git describe --tags ${previousTagSha}`)).stdout.trim();
             console.log("Value of last tag is: ", tag);
 
             let regTag = tag.match(/(?:v)(\d+.\d+).?(\d+)?/i);
