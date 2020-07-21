@@ -26,6 +26,9 @@ async function run() {
         }  else {
             console.log("This was a merge to master which was not a release, attempting to increment patch version.");
 
+            const test = await _exec("git tag");
+            console.log("Value of this test is: ", test);
+
             const previousTagSha = await _exec("git rev-list --tags --topo-order --max-count=1");
             console.log("Value of previous tag is: ", previousTagSha);
 
