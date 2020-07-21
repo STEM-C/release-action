@@ -28,9 +28,12 @@ async function run() {
 
             const previousTagSha = (
                 await exec("git rev-list --tags --topo-order --max-count=1")
-            ).trim();
+            );
 
-            let tag = await exec(`git describe --tags ${previousTagSha}`).trim();
+            console.log("Value of previous tag is: ", previousTagSha);
+            let tag = await exec(`git describe --tags ${previousTagSha}`);
+            console.log("Value of last tag is: ", tag);
+
             let regTag = tag.match(/(?:v)(\d+.\d+).?(\d+)?/i);
             let newVersion;
 
