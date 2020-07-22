@@ -17,9 +17,9 @@ async function run() {
     }
 
     try {
-        let isRelease = pr.title.match(/release/gi);
+        let isRelease = pr.head.ref.match(/release/gi);
         if (isRelease) {
-            let version = pr.title.match(/(?:v\s?)(\d+.?)+/gi)[0];
+            let version = pr.head.ref.match(/(?:v\s?)(\d+.?)+/gi)[0];
 
             await postTag(version);
 
