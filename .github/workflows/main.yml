@@ -13,6 +13,6 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Tag Master
-        uses: rennemannd/auto/tag@v0.5
+        uses: rennemannd/auto/tag@v0.5.1
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
