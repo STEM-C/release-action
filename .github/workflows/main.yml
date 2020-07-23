@@ -13,7 +13,6 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Tag Master
-        uses: ./.github/actions/action-1/
+        uses: rennemannd/auto/tag
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          #slack_token: "${{ secrets.SLACK_TOKEN }}"
