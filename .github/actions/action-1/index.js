@@ -27,15 +27,16 @@ async function run() {
             console.log("This was a merge to master which was not a release, attempting to increment patch version.");
 
             await _exec("git fetch --prune --unshallow --tags");
-
             const previousTagSha = (await _exec("git rev-list --tags --topo-order --max-count=1")).stdout.trim();
-            console.log("Value of previous tag is: ", previousTagSha);
-
             let tag = (await _exec(`git describe --tags ${previousTagSha}`)).stdout.trim();
-            console.log("Value of last tag is: ", tag);
 
             let regTag = tag.match(/(?:v)(\d+.\d+).?(\d+)?/i);
             let newVersion;
+
+            console.log(tag);
+            console.log(typeof(tag));
+            console.log(regTag);
+            console.log(typeof(regTag));
 
             if(regTag[2]) {
                 let newPatch = parseInt(regTag[2], 10) + 1;
