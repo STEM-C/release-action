@@ -30,13 +30,8 @@ async function run() {
             const previousTagSha = (await _exec("git rev-list --tags --topo-order --max-count=1")).stdout.trim();
             let tag = (await _exec(`git describe --tags ${previousTagSha}`)).stdout.trim();
 
-            let regTag = tag.match(/(?:v)(\d+.\d+).?(\d+)?/i);
+            let regTag = tag.match(/(\d+.\d+).?(\d+)?/i);
             let newVersion;
-
-            console.log(tag);
-            console.log(typeof(tag));
-            console.log(regTag);
-            console.log(typeof(regTag));
 
             if(regTag[2]) {
                 let newPatch = parseInt(regTag[2], 10) + 1;
