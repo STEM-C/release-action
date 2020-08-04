@@ -53,6 +53,7 @@ async function postTag(ver) {
         owner, 
         repo,
         tag_name: ver,
+        name: ver,
         body: pr.body
     });
 
