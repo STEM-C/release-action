@@ -5,8 +5,7 @@ const { request } = require("@octokit/request");
 
 const pr = context.payload.pull_request;
 const client = new GitHub(core.getInput("repo_token"));
-//const slackToken = core.getInput("slack_token");
-
+const { owner, repo } = context.repo;
 run();
 
 async function run() {
@@ -51,13 +50,10 @@ async function postTag(ver) {
     console.log(`Creating annotated release`);
 
     const tagCreateResponse = await client.repos.createRelease({
-        ...context.repo,
+        owner, 
+        repo,
         tag_name: ver,
-        name: ver,
-        body: pr.body,
-        draft: false,
-        prerelease: false,
-        target_commitish: context.sha,
+        body: pr.body
     });
 
     console.log("Tag should be created, response was: \n\n", response);
