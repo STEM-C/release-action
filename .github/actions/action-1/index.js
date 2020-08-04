@@ -48,22 +48,16 @@ async function run() {
 }
 
 async function postTag(ver) {
-    console.log(`Creating annotated tag`);
+    console.log(`Creating annotated release`);
 
-    const tagCreateResponse = await client.git.createTag({
+    const tagCreateResponse = await client.repos.createRelease({
         ...context.repo,
-        tag: ver,
-        message: pr.body,
-        object: context.sha,
-        type: "commit",
-    });
-
-    console.log(`Pushing annotated tag to the repo`);
-
-    let response = await client.git.createRef({
-        ...context.repo,
-        ref: `refs/releases/${ver}`,
-        sha: tagCreateResponse.data.sha,
+        tag_name: ver,
+        name: ver,
+        body: pr.body,
+        draft: false,
+        prerelease: false,
+        target_commitish: context.sha,
     });
 
     console.log("Tag should be created, response was: \n\n", response);
