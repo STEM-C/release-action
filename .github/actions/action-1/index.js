@@ -62,7 +62,7 @@ async function postTag(ver) {
 
     let response = await client.git.createRef({
         ...context.repo,
-        ref: `refs/tags/${ver}`,
+        ref: `refs/releases/${ver}`,
         sha: tagCreateResponse.data.sha,
     });
 
